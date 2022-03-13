@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css2/studies/lesson_description.css'%}">
+{% endblock script %}
+
+
+{% block content %}
+<div class="lesson">
+<h1>{{lesson}}</h1>
+<h3><span class="main_task">Main task: </span>{{lesson.main_task}}</h3>
+<h1>Tasks:</h1>
+
+<ul>
+    {% for task in tasks %}
+    <h3><li>{{ task.title }}</li></h3>
+    {% endfor %}
+</ul>
+
+</div>
+{% endblock content %}
+
+
+

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js2/studies/lesson_add.js' %}"></script>
+
+{% endblock script %}
+
+
+{% block content %}
+<form action="" id="form_container" method="post">
+    {% csrf_token %}
+    <h1>Lesson</h1>
+    <div class="form_parent">
+    {{ form_parent|crispy }}
+    </div>
+
+    <h1>Task</h1>
+    <div id="formset_wrapper">
+        <div class="table">
+            <div>{{ task_form_set|crispy }} </div>
+        
+        </div>    
+    </div>
+    
+    <div id="emptyform_wrapper" style="display: none">
+        <div class='table'>
+          <table class='no_error'>
+            {{ task_form_set.empty_form|crispy }}
+          </table>
+        </div>
+      </div>
+    <button type="button" id="add_more" class="btn btn-outline-success">Add another task</button>
+    
+
+    <button type="submit" class="btn btn-success">Create Lesson</button>
+</form>
+
+<script>
+    $('#add_more').click(function () {
+      let total_form = $('#id_form-TOTAL_FORMS');
+      let form_idx = total_form.val();
+  
+      $('#formset_wrapper').append($('#emptyform_wrapper').html().replace(/__prefix__/g, form_idx));
+      //   $('#formset_wrapper').append($('#emptyform_wrapper').html().replace(/__prefix__/g, form_idx));
+      
+      total_form.val(parseInt(form_idx)+1);
+});    
+</script>
+{% endblock content %}
+
+ 

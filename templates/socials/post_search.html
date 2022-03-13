@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css2/socials/post_search.css'%}">
+{% endblock script %}
+
+
+
+{% block content %}
+<h1>Search</h1>
+<form action="{% url 'post_search' %}" method="get" class="d-flex editContent">
+    <input type="search" placeholder="Enter title of post...." name="q" class="form-control" required="">
+    <button type="submit" class="btn1 btn">
+        <span class="fa fa-search" aria-hidden="true">Search</span>
+    </button>
+</form>
+{% if searched != None %}
+<h1>Results for {{ searched }}:</h1>
+{% endif %}
+<div class="row infinite-container" style="flex-direction: column;">
+    {% for post in posts  %} 
+    <div class="post infinite-item">
+        <div class="post">
+            <div class="post_header_info">
+                
+                <h1><a href="{% url 'post_detail' post.id %}">{{ post }}</a></h1>
+                <h1>{{ post.author }}</h1>
+                
+            </div>
+            <h6>{{ post.text }}</h6>
+            {% if post.image %}
+            
+            <img src="/static{{ post.image.url }}" alt="wtf?">
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    {% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}&q={{ searched }}" aria-label="Next" style="display: none;">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+    {% endif %}
+
+
+<script src="{% static "js/jquery.waypoints.min.js" %}"></script>
+<script src="{% static "js/infinite.min.js" %}"></script>
+    <script>
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+
+            offset: 'bottom-in-view',
+
+            onBeforePageLoad: function () {
+                $('.loading').show();
+            },
+            onAfterPageLoad: function () {
+                $('.loading').hide();
+            }
+
+        });
+    </script>
+{% endblock content %}

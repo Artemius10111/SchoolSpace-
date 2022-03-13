@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js2/account/redirect_after_logout.js' %}"></script>
+{% endblock script %}
+
+{% block content %}
+<h1>You were successfuly logged out!</h1>
+<div id="redirect_sign">You will be redirect to <a href="{% url 'home' %}">home page</a> after <span id="time">5</span><span id="seconds"> seconds!</span></div>
+{% endblock content %}

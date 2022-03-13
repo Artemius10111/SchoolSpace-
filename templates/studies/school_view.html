@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block script %}
+
+{% endblock script %}
+
+{% block content %}
+<h1>{{ school }}</h1>
+<h1>{{ school.description }}</h1>
+<img src="/user{{school.picture.url}}" width=64 height=64 alt="">
+<h1>{{ school.picture.url }}</h1>
+<h1>{{ school.school_groups }}</h1>
+<h1>{{ school.teachers }}</h1>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js2/quizes/quiz_update.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css2/update.css' %}">
+{% endblock script %}
+{% block content %}
+<h1>Update your quiz!</h1>
+<form action="{% url 'quiz_update' obj.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-info">Update</button>
+</form>
+{% if messages %}
+{% for message in messages %}
+<h3 class="message">{{message}}</h3>
+{% endfor %}
+{% endif %}
+{% endblock content %}

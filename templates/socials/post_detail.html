@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css2/socials/post_detail.css'%}">
+{% endblock script %}
+{% block content %}
+<div class="container">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div id="post" class="col-sm-8">
+            <div class="header_post">
+                <h1>{{ post.title }}</h1>
+                <h2>
+                    <div class="author">
+
+                    <div class="post_header_info">
+                        
+                    <div class="post_author">
+                            <a href="{% url 'profile' pk=post.author.id %}">
+                                {% if post.author.profile_pic %}
+                                <img id="profile_pic" class="rounded-circle z-depth-2" width="48" height="48" src="/user{{ profile_pic_author.url }}" alt="There is should be a picture profile">
+                                {% else %}
+                                <img id="profile_pic" class="rounded-circle z-depth-2" width="48" height="48" src="{% static 'images/default.png' %}" alt="There is should be a picture profile">
+                                {% endif %}
+                            </a>
+                            <a href="{% url 'profile' post.author.id %}">
+                            <h1 id="author">{{ post.author }}</h1>
+                            </a>
+                    </div>
+                        <h5>
+                           {{ post.date }} 
+                        </h5>
+        
+                    </div>
+         
+                    </div>
+                </h2>    
+                </div>
+                
+                <h5>{{ post.text }}</h5>
+        </div>
+
+    </div>
+
+    <div class="row d-flex align-items-center justify-content-center">
+        <div id="post_bar" class="col-sm-8">
+            <div class="comments_bar">
+                <img id="comments" width="32" height="32" src="{% static 'images/comments.png' %}" alt="There is should be a picture comment">
+                <h1>{{ num_of_comments }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="d-flex align-items-center justify-content-center">Add a comment!</h4>
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-sm-8">
+        <form action="" method='POST'>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-success" type="submit">Create</button>
+        </form>
+        </div>
+    </div>
+
+    {% if page_obj %}
+    <h4 class="d-flex align-items-center justify-content-center">Comments: </h4>
+    {% endif %}
+    <div class="row d-flex align-items-center justify-content-center">
+        {% for comment in page_obj  %}
+            <div id="comment" class="col-sm-8">
+                <div class="comment_header">
+                    <h3>{{ comment.name }}</h3>
+                    <div class="comment_author">
+                        
+                            {% if comment.author.profile_pic %}
+                            <img id="profile_pic" class="rounded-circle z-depth-2" width="48" height="48" src="/user{{ profile_pic_author.url }}" alt="There is should be a picture profile">
+                            {% else %}
+                            <img id="profile_pic" class="rounded-circle z-depth-2" width="48" height="48" src="{% static 'images/default.png' %}" alt="There is should be a picture profile">
+                            {% endif %}
+        
+                        <a href="{% url 'profile' user.id %}">
+                            <h1 id="author">{{ comment.author }}</h1>
+                        </a>
+                    </div>
+                </div>
+                <h6>{{ comment.text }}</h6>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}&q={{ searched }}" aria-label="Next" style="display: none;">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+{% endif %}
+
+<script src="{% static "js/jquery.waypoints.min.js" %}"></script>
+<script src="{% static "js/infinite.min.js" %}"></script>
+
+{% endblock content %}
+
+
+
+
+

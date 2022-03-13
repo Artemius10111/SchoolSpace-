@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'css2/quiz/quiz_action.css' %}">
+<script src="{% static 'js2/quizes/quiz_started.js' %}"></script>
+{% endblock script %}
+{% block content %}
+
+<div class="header">
+  <h1 class="quiz_id" id="{{obj.id}}">{{obj.title}}</h1>
+  <h1>Time left - <span id="quiz_timer"></span></h1>
+</div>
+
+<form action="" method="post" id="quiz_form">
+
+    {% csrf_token %}
+    <div id="quiz_box">
+    </div>
+    <br>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Complete quiz
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Info about quiz</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure to complete this quiz? You also can <span id="timer"></span> recheck your answers!
+          </div>
+          <div class="modal-footer" id="submit-modal">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No, i should check my answers!</button>
+            <button type="submit" class="btn btn-success">Yes, sure!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</form>
+<input type="hidden" id="Url" data-url="{% url 'quiz_results' %}" />
+{% endblock content %}
+ 

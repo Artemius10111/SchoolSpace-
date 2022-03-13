@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css2/quiz/quiz_main.css' %}">
+{% endblock script %}
+{% block content %}
+
+
+<div class="quizes">
+  <div class="header">
+    <h1>Quizes</h1>
+    <a href="{% url 'quiz_create' %}"><button type="button" class="btn btn-success">+ quiz</button></a>
+    
+  </div>
+{% for quiz in object_list  %}
+<ul>
+    <li>  
+       <a href="{% url 'quiz_description' quiz.id %}">{{ quiz.title }}</a>
+    </li>
+</ul>
+{% endfor %}
+{% if page_obj.number > 0 %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+    {% endif %}
+    {% for page in page_obj.paginator.page_range %}
+        {% if page_obj.number == page %}
+        <li class="page-item active">
+            <a class="page-link" href="?page={{ page }}">{{ page }} <span class="sr-only">(current)</span></a>
+        </li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+</div>
+{% endblock content %}

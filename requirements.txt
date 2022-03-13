@@ -1,0 +1,7 @@
+psycopg2-binary
+django-environ
+django-extensions
+Pillow
+django-autoslug
+django-crispy-forms
+django-debug-toolbar 

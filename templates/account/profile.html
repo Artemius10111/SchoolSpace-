@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css2/update.css' %}">
+{% endblock script %}
+
+{% block content %}
+{% if profile_view %}
+<div class="container">
+    <div class="col-sm-8">
+        <h2>{{ user_profile.username }}</h2>
+        <h3>{{ user_profile.first_name }} {{user_profile.last_name}}</h3>
+        <h6>{{ user_profile.email }}</h6>
+    </div>
+</div>
+{% endif %}
+{% if profile_edit %}
+<div class="container">
+
+{% if user.first_name %}
+<h3>Hi, {{user.first_name }}</h3>
+{% else %}
+<h2>Edit your profile</h2>
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if user.profile_pic %}
+    <div class="profile_pic">
+        <img width="128" height="128" src="/user{{ request.user.profile_pic.url }}" alt="There is should be a picture profile">
+        <img width="64" height="64" src="/user{{ request.user.profile_pic.url }}" alt="There is should be a picture profile">
+        <img width="48" height="48" src="/user{{ request.user.profile_pic.url }}" alt="There is should be a picture profile">    
+    </div>
+    {% endif %}
+    <button type='submit' class="btn btn-success">Update</button>
+</form>
+
+{% if messages %}
+{% for message in messages  %}
+<h3 class='message'>{{message}}</h3>
+{% endfor %}
+{% endif %}
+
+<a href="{% url 'password_change' user.id %}">Change Password!</a>
+<a href="{% url 'password_reset' user.id %}">Reset Password!</a>
+<a href="{% url 'logout' user.id %}">Log Out!</a>
+</div>
+{% endif %}
+{% endblock content %}

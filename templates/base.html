@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}School space{% endblock title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+  {% block script %}
+  {% endblock script %} 
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css2/style.css' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+  <header>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4
+     mb-3 border-bottom shadow-sm">
+      <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto
+      font-weight-normal">SCHOOL SPACE</a>
+      <div class="nav">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Quizes
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'quiz_list' %}">View</a>
+                <a class="dropdown-item" href="{% url 'quiz_create' %}">Create</a>
+                <a class="dropdown-item" href="{% url 'quiz_results' %}">Your results</a>
+
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Lessons
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'lesson_list' %}">View</a>
+                <a class="dropdown-item" href="{% url 'add_lesson' %}">Create</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Socials
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'your_posts'%}">Your posts</a>
+                <a class="dropdown-item" href="{% url 'post_search' %}">Search</a>
+                <a class="dropdown-item" href="{% url 'post_create' %}">Create post</a>
+              </div>
+            </li>
+              {% if request.user.profile_pic %}
+              <li class="nav-item">
+                  <a href="{% url 'profile' user.id %}"><img id="profile_pic" class="rounded-circle z-depth-2" width="48" height="48" src="/user{{ request.user.profile_pic.url }}" alt="There is should be a picture profile"></a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+              <a href="{% url 'profile' user.id %}"><img id="profile_pic" class="rounded-circle z-depth-2" width="48" height="48" src="{% static 'images/default.png' %}" alt="There is should be a picture profile"></a>
+              </li>
+            </li>
+              {% endif %}
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+              </li>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </nav>  
+    </div>
+    </div>
+  </header>
+  <div class="main_container">
+    <div class="container">
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </div>
+  <footer>
+      <div class="footer_container">
+          <div>Need some help? <a href="{% url 'call_support' %}">Yes!</a></div>
+      </div>   
+  </footer>
+  <!-- JavaScript -->
+  <!-- JS, Popper.js, and jQuery -->
+
+</body>
+</html>

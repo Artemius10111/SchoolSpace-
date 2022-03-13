@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block script %}
+{% endblock script %}
+<div class="footer">
+  <h1>{{obj.title}} quiz</h1>  
+  {% if can_edit %}
+  <a href="{% url 'quiz_update' obj.id %}"><button type="button" class="btn btn-secondary">Edit quiz</button></a>
+  {% endif %}
+  <h1>Authors:</h1>
+  {% for i in obj.authors.all  %}
+  <h1>{{ i }}</h1>
+  {% endfor %}
+</div>
+
+<button type="button" class="btn btn-primary" id="ViewQuizBtn" data-toggle="modal" data-target="#exampleModal">
+    View quiz info!
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ obj.title }} quiz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>Title: <span>{{ obj.title }}</span></p>
+            <p>Number of questions: <span>{{ obj.number_of_questions }}</span></p>
+            <p>Time to complete quiz: <span>{{ obj.time_to_complete }}</span></p>
+            <p>Needed number of questios to pass quiz: <span>{{ obj.number_of_questions_to_pass }}</span></p>
+            {% if attempts %}
+            <p>Number of attempts: <span>{{ attempts.number }}</span></p>
+            {% endif %}
+            {% if obj.difficulty == "easy" %}
+            <p>Difficult: <span class="easy_difficult">{{obj.difficulty }}</span></p>
+            {% endif %}
+            {% if obj.difficulty == "medium" %}
+            <p>Difficult: <span class="medium_difficult">{{obj.difficulty }}</span></p>
+            {% endif %}
+            {% if obj.difficulty == "hard" %}
+            <p>Difficult: <span class="hard_difficult">{{obj.difficulty }}</span></p>
+            {% endif %}
+            {% if obj.difficulty == "really hard" %}
+            <p>Difficult: <span class="really_hard_difficult">{{obj.difficulty }}</span></p>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          {% if attempts.number > 0 %}
+          <button type="button" class="btn btn-success" id="quiz_start_button" onclick="location.href = '{% url 'quiz_action' obj.id %}'">Make a try</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}
+

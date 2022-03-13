@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css2/quiz/quiz_create.css'%}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js2/quizes/quiz_create.js'%}"></script>
+{% endblock script %}
+{% block content %}
+<h1>Create your quiz!</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+
+
+<div id="formset_wrapper">
+    <div class="table">
+        <h2>Question: </h2>
+        {% csrf_token %}
+        {{ formset_question|crispy}}
+        <h2>Answers: </h2>
+        <div class="answers">
+        {% csrf_token %}
+        {{ formset_answer|crispy }}          
+        </div>
+        
+    </div>
+    
+</div>
+    
+
+
+  <div id="emptyquestion_wrapper" style="display: none">
+    <div class="table">
+        <h2>Question: </h2>
+        {% csrf_token %}
+        {{ formset_question.empty_form|crispy}}
+        <h2>Answers: </h2>
+        <div class="answers">
+        {% csrf_token %}
+        {{ formset_answer.empty_form|crispy }}          
+        </div>
+        
+    </div>
+    
+</div>
+
+<div id="emptyanswer_wrapper" style="display: none">
+  <div class='table'>
+    <table class='no_error'>
+      {{ formset_answer.empty_form|crispy }}
+    </table>
+  </div>
+</div>
+
+<button type="button" id="add_more_answer" class="btn btn-outline-success">Add another answer</button>
+<button type="button" id="add_more_question" class="btn btn-outline-success">Add another question</button>
+
+<button type="submit" class="btn btn-success">Create quiz!</button>
+</form>
+
+{% endblock content %}
+
+

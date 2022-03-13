@@ -1,0 +1,146 @@
+html, body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer_container{
+    background-color: rgb(100, 100, 100);
+    color: white;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+footer{
+    background-color: rgb(100, 100, 100);
+    color: white;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+}
+
+html { font-size: 1rem; }
+
+@media (min-width: 1px) {
+    html { font-size: 0.5rem; }
+    #profile_pic {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (min-width: 576px) {
+    html { font-size: 0.6rem; }
+    #profile_pic {
+        width: 30px;
+        height: 30px;
+    }
+}
+@media (min-width: 768px) {
+    html { font-size: 0.7rem; }
+    #profile_pic {
+        width: 36px;
+        height: 36px;
+    }
+}
+@media (min-width: 992px) {
+    html { font-size: 0.8rem; }
+    h1 {}
+}
+@media (min-width: 1200px) {
+    html { font-size: 1rem; }
+}
+
+.main_containter form p{
+    text-align: center;
+}
+
+.main_containter {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main_containter *{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile_pic {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.profile_pic * {
+    margin-right: 5px;
+}
+
+
+.easy_difficult{
+    color: rgb(0, 255, 21);
+}
+
+.medium_difficult{
+    color: rgb(255, 255, 0);
+}
+
+.hard_difficult{
+    color: rgb(255, 153, 0);
+}
+.really_hard_difficult{
+    color: red;
+}
+
+.dropdown-menu{
+    left: -85px;
+    width: 10px !important;
+}
+
+.dropdown-item{
+    text-align: end;
+}
+
+
+.navbar-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+
+}
+
+.form_parent *{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_child p *{
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+.col-sm-8 {
+    background-color: rgb(249, 249, 249);
+    border-radius: 10px;
+    width: 100%;
+    padding: 25px;
+    margin-bottom: 10px;
+}
